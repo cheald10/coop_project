@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Plan History - {{ division.name }}{% endblock %}
+{% block content %}
+<h1>Plan History – {{ division.name }}</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Word</th>
+      <th>PDF</th>
+      <th>Generated At</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for plan in plans %}
+      <tr>
+        <td>{{ plan.version }}</td>
+        <td><a href="{{ plan.word_file.url }}" target="_blank">Word</a></td>
+        <td><a href="{{ plan.pdf_file.url }}" target="_blank">PDF</a></td>
+        <td>{{ plan.created_at }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4">No plans generated yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

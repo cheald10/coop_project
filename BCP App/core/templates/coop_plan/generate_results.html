@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Plan Generated - {{ division.name }}{% endblock %}
+{% block content %}
+<h1>COOP Plan Generated – {{ division.name }}</h1>
+
+<p>New plan version: {{ result.version }}</p>
+<p>
+  <a href="{{ result.word_file }}" target="_blank">Download Word</a><br>
+  <a href="{{ result.pdf_file }}" target="_blank">Download PDF</a>
+</p>
+
+<a href="{% url 'division_detail' division.id %}" class="btn btn-secondary">Back to Division</a>
+{% endblock %}
