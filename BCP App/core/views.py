@@ -10,7 +10,8 @@ from .forms import (
     CommunicationForm, RecoveryPriorityForm, DivisionMetadataForm
 )
 from .services.coop_plan import generate_coop_plan_for_division
-
+from django.contrib.auth.decorators import login_required, user_passes_test 
+from django.db.models import Count from .models import Division, EssentialFunction, CriticalApplication
 
 # -------------------------
 # Division Views
@@ -361,3 +362,25 @@ def coop_plan_history(request, division_id):
     division = get_object_or_404(Division, pk=division_id)
     plans = GeneratedPlan.objects.filter(division=division).order_by("-created_at")
     return render(request, "coop_plan/history.html", {"division": division, "plans": plans})
+
+# -------------------------
+# Leadership Dashboard
+# -------------------------
+
+def is_leadership(user):
+    return user.is_authenticated and (user.is_superuser or user.groups.filter(name="Leadership").exists())
+
+@login_required
+@user_passes_test(is_leadership)
+def leadership_dashboard(request):
+    divisions = (
+        Division.objects
+        .all()
+        .annotate(
+            essential_function_count=Count("essentialfunction"),
+            critical_application_count=Count("criticalapplication"),
+        )
+        .order_by("name")
+    )
+
+    return render(request, "dashboard/leadership.html", {"divisions": divisions})
