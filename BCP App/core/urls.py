@@ -188,4 +188,9 @@ urlpatterns = [
         views.coop_plan_history,
         name="coop_plan_history"
     ),
+
+    # -------------------------
+    # Leadership Dashboard
+    # -------------------------
+    path("dashboard/leadership/", views.leadership_dashboard, name="leadership_dashboard"),
 ]
