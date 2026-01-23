@@ -1,0 +1,117 @@
+CREATE TABLE division (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    coordinator_id INTEGER REFERENCES auth_user(id),
+    plan_status VARCHAR(50),
+    last_updated DATE,
+    next_review_date DATE,
+    plan_version INTEGER DEFAULT 1,
+    notes TEXT
+);
+
+CREATE TABLE essentialfunction (
+    id SERIAL PRIMARY KEY,
+    division_id INTEGER REFERENCES division(id),
+    name VARCHAR(255),
+    description TEXT,
+    mtd VARCHAR(50),
+    rto VARCHAR(50),
+    owner VARCHAR(255),
+    dependencies TEXT,
+    alternate_procedures TEXT,
+    priority VARCHAR(50)
+);
+
+CREATE TABLE criticalapplication (
+    id SERIAL PRIMARY KEY,
+    division_id INTEGER REFERENCES division(id),
+    name VARCHAR(255),
+    description TEXT,
+    hosting_environment VARCHAR(50),
+    recovery_tier VARCHAR(50),
+    rto VARCHAR(50),
+    vendor_contact VARCHAR(255),
+    dependencies TEXT,
+    workarounds TEXT
+);
+
+CREATE TABLE keypersonnel (
+    id SERIAL PRIMARY KEY,
+    division_id INTEGER REFERENCES division(id),
+    name VARCHAR(255),
+    role VARCHAR(255),
+    primary_or_alternate VARCHAR(50),
+    work_phone VARCHAR(50),
+    mobile_phone VARCHAR(50),
+    email VARCHAR(255)
+);
+
+CREATE TABLE vitalrecord (
+    id SERIAL PRIMARY KEY,
+    division_id INTEGER REFERENCES division(id),
+    name VARCHAR(255),
+    description TEXT,
+    record_type VARCHAR(50),
+    storage_location VARCHAR(255),
+    backup_location VARCHAR(255),
+    format VARCHAR(50),
+    owner VARCHAR(255),
+    priority VARCHAR(50)
+);
+
+CREATE TABLE dependency (
+    id SERIAL PRIMARY KEY,
+    division_id INTEGER REFERENCES division(id),
+    name VARCHAR(255),
+    dependency_type VARCHAR(50),
+    description TEXT,
+    criticality VARCHAR(50),
+    vendor_contact VARCHAR(255),
+    recovery_notes TEXT
+);
+
+CREATE TABLE alternatefacility (
+    id SERIAL PRIMARY KEY,
+    division_id INTEGER REFERENCES division(id),
+    name VARCHAR(255),
+    address TEXT,
+    facility_type VARCHAR(50),
+    capacity INTEGER,
+    it_availability VARCHAR(50),
+    contact VARCHAR(255),
+    notes TEXT
+);
+
+CREATE TABLE communication (
+    id SERIAL PRIMARY KEY,
+    division_id INTEGER REFERENCES division(id),
+    communication_type VARCHAR(50),
+    description TEXT,
+    primary_contact VARCHAR(255),
+    contact_details TEXT,
+    backup_contact VARCHAR(255),
+    method VARCHAR(50),
+    notes TEXT
+);
+
+CREATE TABLE recoverypriority (
+    id SERIAL PRIMARY KEY,
+    division_id INTEGER REFERENCES division(id),
+    item_name VARCHAR(255),
+    item_type VARCHAR(50),
+    priority_level INTEGER,
+    rationale TEXT
+);
+
+CREATE TABLE divisionmetadata (
+    id SERIAL PRIMARY KEY,
+    division_id INTEGER UNIQUE REFERENCES division(id),
+    director VARCHAR(255),
+    coordinator VARCHAR(255),
+    mission_statement TEXT,
+    primary_location TEXT,
+    staff_count INTEGER,
+    hours_of_operation VARCHAR(255),
+    critical_services_summary TEXT,
+    leadership_contact_info TEXT
+);
