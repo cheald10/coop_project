@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Communications – {{ division.name }}{% endblock %}
+{% block content %}
+<h1>Communications – {{ division.name }}</h1>
+
+<a href="{% url 'communication_create' division.id %}" class="btn btn-success mb-3">Add Communication Method</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Primary Contact</th>
+      <th>Method</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for comm in items %}
+      <tr>
+        <td>{{ comm.communication_type }}</td>
+        <td>{{ comm.primary_contact }}</td>
+        <td>{{ comm.method }}</td>
+        <td>
+          <a href="{% url 'communication_edit' comm.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4">No communication methods listed.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

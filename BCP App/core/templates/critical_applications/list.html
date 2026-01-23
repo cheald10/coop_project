@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Critical Applications – {{ division.name }}{% endblock %}
+{% block content %}
+<h1>Critical Applications – {{ division.name }}</h1>
+
+<a href="{% url 'critical_application_create' division.id %}" class="btn btn-success mb-3">Add Application</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Hosting</th>
+      <th>RTO</th>
+      <th>Recovery Tier</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.hosting_environment }}</td>
+        <td>{{ item.rto }}</td>
+        <td>{{ item.recovery_tier }}</td>
+        <td>
+          <a href="{% url 'critical_application_edit' item.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">No critical applications defined.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
