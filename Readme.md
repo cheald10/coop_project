@@ -55,54 +55,7 @@ Installed via `requirements.txt`:
 git clone https://github.com/<your-org>/<your-repo>.git
 cd <your-repo>
 
----
-### 2. Create a virtual environment
-```bash
-python -m venv venv
-source venv/bin/activate   # macOS/Linux
-venv\Scripts\activate      # Windows
 
-### 3. Install dependencies
-```bash
-pip install -r requirements.txt
-
-### 4. Configure environment variables
-Create a .env file in the project root:
-```bash
-SECRET_KEY=your_django_secret_key
-DEBUG=True
-DATABASE_NAME=coopdb
-DATABASE_USER=postgres
-DATABASE_PASSWORD=yourpassword
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-MEDIA_ROOT=media
-MEDIA_URL=/media/
-
-### 5. Create the PostgreSQL database
-```bash
-CREATE DATABASE coopdb;
-
-### 6. Run migrations
-```bash
-python manage.py migrate
-
-### 7. Create a superuser
-```bash
-python manage.py createsuperuser
-
-### 8. Start the development server
-```bash
-python manage.py runserver
-
-### Visit:
-```bash
-http://127.0.0.1:8000
-
-Here’s your block rewritten in **clean, correct Markdown**, with all steps formatted consistently and all code blocks properly opened and closed.  
-You can paste this directly into your README and it will render perfectly on GitHub.
-
----
 
 ```md
 ## 🛠️ Setup Instructions
@@ -168,23 +121,35 @@ http://127.0.0.1:8000
 ```
 ```
 
+Absolutely — here is a **clean, ready‑to‑paste Markdown block** starting **exactly at “Environment Variables” and continuing through the rest of the README**.  
+Everything is formatted consistently, with correct code blocks and headings.
+
+You can drop this directly into your README.md.
+
 ---
 
-If you want, I can also clean up the entire README for consistent heading levels and spacing so everything looks polished.
+```md
+# 🔧 Environment Variables
 
-🔧 Environment Variables
-Variable	Description
-SECRET_KEY	Django secret key
-DEBUG	Enable/disable debug mode
-DATABASE_NAME	PostgreSQL database name
-DATABASE_USER	Database username
-DATABASE_PASSWORD	Database password
-DATABASE_HOST	Database host
-DATABASE_PORT	Database port
-MEDIA_ROOT	Directory for generated plans
-MEDIA_URL	Public URL for media files
+Create a `.env` file in the project root with the following values:
 
-📁 Project Structure
+```
+SECRET_KEY=your_django_secret_key
+DEBUG=True
+DATABASE_NAME=coopdb
+DATABASE_USER=postgres
+DATABASE_PASSWORD=yourpassword
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+MEDIA_ROOT=media
+MEDIA_URL=/media/
+```
+
+---
+
+# 📁 Project Structure
+
+```
 project_root/
 │
 ├── app/
@@ -222,63 +187,76 @@ project_root/
 ├── data/                       # SharePoint CSV imports
 ├── requirements.txt
 └── README.md
+```
 
-⭐ Key Features
-###1. Division‑Scoped COOP Management
+---
+
+# ⭐ Key Features
+
+### **1. Division‑Scoped COOP Management**
 Each division maintains:
-  -Essential Functions
-  -Critical Applications
-  -Key Personnel
-  -Vital Records
-  -Dependencies
-  -Alternate Facilities
-  -Communications
-  -Recovery Priorities
-  -Division Metadata
+- Essential Functions  
+- Critical Applications  
+- Key Personnel  
+- Vital Records  
+- Dependencies  
+- Alternate Facilities  
+- Communications  
+- Recovery Priorities  
+- Division Metadata  
 
-###2. Automated COOP Plan Generation
-  -Pulls all division data
-  -Populates a Word template
-  -Converts to PDF
-  -Saves both files
-  -Increments version number
-  -Logs history
+### **2. Automated COOP Plan Generation**
+- Pulls all division data  
+- Populates a Word template  
+- Converts to PDF  
+- Saves both files  
+- Increments version number  
+- Logs history  
 
-###Role‑Based Access Control
-Role	Capabilities
-Admin	Full access to all divisions
-Coordinator	Edit only their division
-Leadership	Read‑only + dashboard
+### **3. Role‑Based Access Control**
+| Role | Capabilities |
+|------|--------------|
+| **Admin** | Full access to all divisions |
+| **Coordinator** | Edit only their division |
+| **Leadership** | Read‑only + dashboard |
 
-###4. Leadership Dashboard
-  -Division readiness overview
-  -Plan version tracking
-  -Essential function counts
-  -Critical application counts
+### **4. Leadership Dashboard**
+- Division readiness overview  
+- Plan version tracking  
+- Essential function counts  
+- Critical application counts  
 
-###5. SharePoint Migration Script
+### **5. SharePoint Migration Script**
 Imports CSV exports from:
-  -Essential Functions
-  -Critical Applications
-  -Key Personnel
-  -Vital Records
-  -Dependencies
-  -Alternate Facilities
-  -Communications
-  -Recovery Priorities
-  -Division Metadata
-  -Divisions
+- Essential Functions  
+- Critical Applications  
+- Key Personnel  
+- Vital Records  
+- Dependencies  
+- Alternate Facilities  
+- Communications  
+- Recovery Priorities  
+- Division Metadata  
+- Divisions  
 
-###6. Clean HTML Template Frontend
-  -Bootstrap UI
-  -Sidebar navigation
-  -Division‑aware context processor
-  -No JavaScript framework required
+### **6. Clean HTML Template Frontend**
+- Bootstrap UI  
+- Sidebar navigation  
+- Division‑aware context processor  
+- No JavaScript framework required  
 
-🏢 Developer Attribution
+---
+
+# 🏢 Developer Attribution
+
 This platform was designed and developed by:
 
-Heald & Heritage LLC
-Leveraging Microsoft Copilot for accelerated architecture, code generation, and documentation.
+### **Heald & Heritage LLC**  
+*Leveraging Microsoft Copilot for accelerated architecture, code generation, and documentation.*
 
 If you use or extend this project, please retain attribution in your documentation.
+```
+
+---
+
+If you want, I can also generate a **fully normalized README** with consistent heading levels throughout, or help you add badges, screenshots, or a project logo.
