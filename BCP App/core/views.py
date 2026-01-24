@@ -532,3 +532,35 @@ def sync_critical_applications_servicenow(request, division_id):
     )
     return redirect("critical_application_list", division_id=division.id)
 
+# ---------------------------------------------------------
+# Leadership Dashboard
+# ---------------------------------------------------------
+
+@login_required
+def leadership_dashboard(request):
+    """
+    Leadership dashboard showing overview of all divisions' readiness.
+    Read-only view for Leadership role.
+    """
+    from django.db.models import Count
+    
+    # Check if user has leadership access
+    if not (request.user.is_superuser or 
+            request.user.groups.filter(name__in=["Leadership", "COOP Admins"]).exists()):
+        return redirect("division_list")
+    
+    # Aggregate division data
+    divisions = Division.objects.annotate(
+        essential_function_count=Count('essentialfunction'),
+        critical_application_count=Count('criticalapplication'),
+        key_personnel_count=Count('keypersonnel'),
+        vital_record_count=Count('vitalrecord')
+    ).select_related('coordinator')
+    
+    context = {
+        "divisions": divisions,
+        "total_divisions": divisions.count(),
+    }
+    
+    return render(request, "dashboard/leadership.html", context)
+
