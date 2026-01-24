@@ -5,6 +5,16 @@
 
 <a href="{% url 'critical_application_create' division.id %}" class="btn btn-success mb-3">Add Application</a>
 
+<div class="d-flex justify-content-between mb-3">
+  <a href="{% url 'critical_application_create' division.id %}" class="btn btn-success">
+    Add Application
+  </a>
+
+  <a href="{% url 'sync_critical_applications_servicenow' division.id %}" class="btn btn-outline-primary">
+    Sync from ServiceNow
+  </a>
+</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -31,4 +41,5 @@
     {% endfor %}
   </tbody>
 </table>
+
 {% endblock %}
