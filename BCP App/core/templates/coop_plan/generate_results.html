@@ -1,13 +1,49 @@
 {% extends "base.html" %}
-{% block title %}Plan Generated - {{ division.name }}{% endblock %}
+{% block title %}COOP Plan Generated{% endblock %}
 {% block content %}
-<h1>COOP Plan Generated – {{ division.name }}</h1>
+<h1>COOP Plan Generated Successfully</h1>
 
-<p>New plan version: {{ result.version }}</p>
-<p>
-  <a href="{{ result.word_file }}" target="_blank">Download Word</a><br>
-  <a href="{{ result.pdf_file }}" target="_blank">Download PDF</a>
-</p>
+{% if result.success %}
+  <div class="alert alert-success">
+    <h4>✓ Plan generation complete!</h4>
+    <p>Version {{ result.plan.version }} has been created for {{ division.name }}.</p>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <h5>Generated Files</h5>
+    </div>
+    <div class="card-body">
+      <p><strong>Created:</strong> {{ result.plan.created_at|date:"F d, Y g:i A" }}</p>
+      <p><strong>Version:</strong> {{ result.plan.version }}</p>
+      
+      <div class="mt-3">
+        <a href="{{ result.plan.docx_file.url }}" class="btn btn-primary" download>
+          <i class="bi bi-file-earmark-word"></i> Download Word (.docx)
+        </a>
+        <a href="{{ result.plan.pdf_file.url }}" class="btn btn-danger" download>
+          <i class="bi bi-file-earmark-pdf"></i> Download PDF
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="mt-4">
+    <a href="{% url 'coop_plan_history' division.id %}" class="btn btn-secondary">View All Versions</a>
+    <a href="{% url 'division_detail' division.id %}" class="btn btn-outline-primary">Back to Division</a>
+  </div>
 
-<a href="{% url 'division_detail' division.id %}" class="btn btn-secondary">Back to Division</a>
+{% else %}
+  <div class="alert alert-danger">
+    <h4>✗ Plan generation failed</h4>
+    <ul>
+      {% for error in result.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <a href="{% url 'division_detail' division.id %}" class="btn btn-primary">Back to Division</a>
+{% endif %}
+
 {% endblock %}
