@@ -109,17 +109,11 @@ http://127.0.0.1:8000
 ```
 ```
 
-Absolutely — here is a **clean, ready‑to‑paste Markdown block** starting **exactly at “Environment Variables” and continuing through the rest of the README**.  
-Everything is formatted consistently, with correct code blocks and headings.
-
-You can drop this directly into your README.md.
-
----
-
-```md
 # 🔧 Environment Variables
 
 Create a `.env` file in the project root with the following values:
+
+
 
 ```
 SECRET_KEY=your_django_secret_key
