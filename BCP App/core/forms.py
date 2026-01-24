@@ -8,52 +8,52 @@ from .models import (
 class EssentialFunctionForm(forms.ModelForm):
     class Meta:
         model = EssentialFunction
-        fields = '__all__'
+        exclude = ['division']  # Division set programmatically in view
 
 
 class CriticalApplicationForm(forms.ModelForm):
     class Meta:
         model = CriticalApplication
-        fields = '__all__'
+        exclude = ['division']
 
 
 class KeyPersonnelForm(forms.ModelForm):
     class Meta:
         model = KeyPersonnel
-        fields = '__all__'
+        exclude = ['division']
 
 
 class VitalRecordForm(forms.ModelForm):
     class Meta:
         model = VitalRecord
-        fields = '__all__'
+        exclude = ['division']
 
 
 class DependencyForm(forms.ModelForm):
     class Meta:
         model = Dependency
-        fields = '__all__'
+        exclude = ['division']
 
 
 class AlternateFacilityForm(forms.ModelForm):
     class Meta:
         model = AlternateFacility
-        fields = '__all__'
+        exclude = ['division']
 
 
 class CommunicationForm(forms.ModelForm):
     class Meta:
         model = Communication
-        fields = '__all__'
+        exclude = ['division']
 
 
 class RecoveryPriorityForm(forms.ModelForm):
     class Meta:
         model = RecoveryPriority
-        fields = '__all__'
+        exclude = ['division']
 
 
 class DivisionMetadataForm(forms.ModelForm):
     class Meta:
         model = DivisionMetadata
-        fields = '__all__'
+        exclude = ['division']
