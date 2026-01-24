@@ -109,11 +109,23 @@ http://127.0.0.1:8000
 ```
 ```
 
+Ah, I see exactly what’s happening — **your Markdown isn’t rendering correctly because the code blocks are not fenced properly.**  
+GitHub requires triple‑backticks (```) *before and after* any code or directory tree.
+
+Right now, your README is missing those closing fences, so GitHub is treating everything as plain text.
+
+Let me give you a **clean, fully corrected, copy‑and‑paste‑ready Markdown block** starting at **Environment Variables** and continuing through the end of your README.
+
+This version **will render perfectly** on GitHub.
+
+---
+
+# ✅ **Corrected Markdown (copy/paste this)**
+
+```md
 # 🔧 Environment Variables
 
 Create a `.env` file in the project root with the following values:
-
-
 
 ```
 SECRET_KEY=your_django_secret_key
@@ -239,6 +251,3 @@ This platform was designed and developed by:
 If you use or extend this project, please retain attribution in your documentation.
 ```
 
----
-
-If you want, I can also generate a **fully normalized README** with consistent heading levels throughout, or help you add badges, screenshots, or a project logo.
