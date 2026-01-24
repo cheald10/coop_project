@@ -158,5 +158,43 @@ class DivisionMetadata(models.Model):
     critical_services_summary = models.TextField(blank=True)
     leadership_contact_info = models.TextField(blank=True)
 
+
+    # Add these to the END of your models.py:
+
+class ServiceNowIntegrationConfig(models.Model):
+    """
+    Configuration for ServiceNow CMDB integration per division.
+    """
+    division = models.OneToOneField(Division, on_delete=models.CASCADE)
+    enabled = models.BooleanField(default=False)
+    query = models.TextField(
+        blank=True,
+        help_text="Optional ServiceNow sysparm_query filter"
+    )
+    last_sync = models.DateTimeField(null=True, blank=True)
+    sync_frequency_hours = models.IntegerField(default=24)
+    
+    def __str__(self):
+        return f"ServiceNow Config for {self.division.name}"
+
+
+class GeneratedPlan(models.Model):
+    """
+    Tracks history of generated COOP plans.
+    """
+    division = models.ForeignKey(Division, on_delete=models.CASCADE)
+    version = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    docx_file = models.FileField(upload_to='coop_plans/docx/')
+    pdf_file = models.FileField(upload_to='coop_plans/pdf/')
+    notes = models.TextField(blank=True)
+    
+    def __str__(self):
+        return f"{self.division.name} v{self.version} - {self.created_at.strftime('%Y-%m-%d')}"
+    
+    class Meta:
+        ordering = ['-created_at']
+        unique_together = ['division', 'version']
     def __str__(self):
         return f"Metadata for {self.division.name}"
