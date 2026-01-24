@@ -193,4 +193,15 @@ urlpatterns = [
     # Leadership Dashboard
     # -------------------------
     path("dashboard/leadership/", views.leadership_dashboard, name="leadership_dashboard"),
+
+    from . import views
+
+urlpatterns += [
+    path(
+        "divisions/<int:division_id>/critical-applications/sync-servicenow/",
+        views.sync_critical_applications_servicenow,
+        name="sync_critical_applications_servicenow",
+    ),
+]
+
 ]
