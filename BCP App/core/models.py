@@ -1,6 +1,28 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.conf import settings
+
+class ServiceNowIntegrationConfig(models.Model):
+    division = models.OneToOneField("Division", on_delete=models.CASCADE, related_name="servicenow_config")
+    instance_url = models.URLField()
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    app_table = models.CharField(max_length=255, default="cmdb_ci_service")
+    query = models.TextField(blank=True, help_text="Optional ServiceNow sysparm_query filter")
+    enabled = models.BooleanField(default=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="created_servicenow_configs",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"ServiceNow config for {self.division.name}"
 
 class Division(models.Model):
     name = models.CharField(max_length=255, unique=True)
