@@ -142,6 +142,11 @@ urlpatterns = [
         name="communication_edit"
     ),
 
+    path("dashboard/leadership/", 
+         views.leadership_dashboard, 
+         name="leadership_dashboard"
+    ),
+    
     # -------------------------
     # Recovery Priorities
     # -------------------------
@@ -202,6 +207,4 @@ urlpatterns += [
         views.sync_critical_applications_servicenow,
         name="sync_critical_applications_servicenow",
     ),
-]
-
 ]
