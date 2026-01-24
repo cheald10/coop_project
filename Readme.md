@@ -55,6 +55,7 @@ Installed via `requirements.txt`:
 git clone https://github.com/<your-org>/<your-repo>.git
 cd <your-repo>
 
+---
 ### 2. Create a virtual environment
 ```bash
 python -m venv venv
