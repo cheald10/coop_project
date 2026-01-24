@@ -503,3 +503,32 @@ def coop_plan_history(request, division_id):
     division = get_object_or_404(Division, pk=division_id)
     plans = GeneratedPlan.objects.filter(division=division).order_by("-created_at")
     return render(request, "coop_plan/history.html", {"division": division, "plans": plans})
+
+# ---------------------------------------------------------
+# Service Now API
+# ---------------------------------------------------------
+
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .integrations.servicenow import sync_critical_applications_from_servicenow
+from .models import Division
+from .views import can_edit_division  # if defined there
+
+@login_required
+def sync_critical_applications_servicenow(request, division_id):
+    division = get_object_or_404(Division, pk=division_id)
+
+    if not can_edit_division(request.user, division):
+        messages.error(request, "You do not have permission to sync this division.")
+        return redirect("critical_application_list", division_id=division.id)
+
+    # Optional: allow a query filter via GET or POST
+    query = request.GET.get("query") or None
+
+    summary = sync_critical_applications_from_servicenow(division, query=query)
+    messages.success(
+        request,
+        f"ServiceNow sync complete: {summary['created']} created, {summary['updated']} updated (total {summary['total']}).",
+    )
+    return redirect("critical_application_list", division_id=division.id)
+
