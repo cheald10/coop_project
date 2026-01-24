@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Essential Functions - {{ division.name }}{% endblock %}
+{% block content %}
+<h1>Essential Functions – {{ division.name }}</h1>
+
+<a href="{% url 'essential_function_create' division.id %}" class="btn btn-sm btn-success mb-3">
+  Add Essential Function
+</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>MTD</th>
+      <th>RTO</th>
+      <th>Priority</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.mtd }}</td>
+        <td>{{ item.rto }}</td>
+        <td>{{ item.priority }}</td>
+        <td>
+          <a href="{% url 'essential_function_edit' item.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">No essential functions defined yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

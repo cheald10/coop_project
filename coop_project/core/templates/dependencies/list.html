@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Dependencies – {{ division.name }}{% endblock %}
+{% block content %}
+<h1>Dependencies – {{ division.name }}</h1>
+
+<a href="{% url 'dependency_create' division.id %}" class="btn btn-success mb-3">Add Dependency</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Criticality</th>
+      <th>Vendor Contact</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for dep in items %}
+      <tr>
+        <td>{{ dep.name }}</td>
+        <td>{{ dep.dependency_type }}</td>
+        <td>{{ dep.criticality }}</td>
+        <td>{{ dep.vendor_contact }}</td>
+        <td>
+          <a href="{% url 'dependency_edit' dep.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">No dependencies listed.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

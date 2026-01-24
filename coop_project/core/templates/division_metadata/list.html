@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Division Profile – {{ division.name }}{% endblock %}
+{% block content %}
+<h1>Division Profile – {{ division.name }}</h1>
+
+<p><strong>Director:</strong> {{ metadata.director }}</p>
+<p><strong>Coordinator:</strong> {{ metadata.coordinator }}</p>
+<p><strong>Mission:</strong> {{ metadata.mission_statement }}</p>
+<p><strong>Primary Location:</strong> {{ metadata.primary_location }}</p>
+<p><strong>Staff Count:</strong> {{ metadata.staff_count }}</p>
+<p><strong>Hours:</strong> {{ metadata.hours_of_operation }}</p>
+<p><strong>Critical Services:</strong> {{ metadata.critical_services_summary }}</p>
+<p><strong>Leadership Contact Info:</strong> {{ metadata.leadership_contact_info }}</p>
+
+<a href="{% url 'division_metadata_edit' division.id %}" class="btn btn-primary">Edit Profile</a>
+{% endblock %}

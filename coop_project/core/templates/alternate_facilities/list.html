@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Alternate Facilities – {{ division.name }}{% endblock %}
+{% block content %}
+<h1>Alternate Facilities – {{ division.name }}</h1>
+
+<a href="{% url 'alternate_facility_create' division.id %}" class="btn btn-success mb-3">Add Facility</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Capacity</th>
+      <th>IT Availability</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for fac in items %}
+      <tr>
+        <td>{{ fac.name }}</td>
+        <td>{{ fac.facility_type }}</td>
+        <td>{{ fac.capacity }}</td>
+        <td>{{ fac.it_availability }}</td>
+        <td>
+          <a href="{% url 'alternate_facility_edit' fac.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">No alternate facilities listed.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
