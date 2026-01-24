@@ -99,6 +99,79 @@ python manage.py runserver
 ```bash
 http://127.0.0.1:8000
 
+Here’s your block rewritten in **clean, correct Markdown**, with all steps formatted consistently and all code blocks properly opened and closed.  
+You can paste this directly into your README and it will render perfectly on GitHub.
+
+---
+
+```md
+## 🛠️ Setup Instructions
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/<your-org>/<your-repo>.git
+cd <your-repo>
+```
+
+---
+
+### 2. Create a virtual environment
+```bash
+python -m venv venv
+source venv/bin/activate   # macOS/Linux
+venv\Scripts\activate      # Windows
+```
+
+### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure environment variables  
+Create a `.env` file in the project root:
+
+```bash
+SECRET_KEY=your_django_secret_key
+DEBUG=True
+DATABASE_NAME=coopdb
+DATABASE_USER=postgres
+DATABASE_PASSWORD=yourpassword
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+MEDIA_ROOT=media
+MEDIA_URL=/media/
+```
+
+### 5. Create the PostgreSQL database
+```sql
+CREATE DATABASE coopdb;
+```
+
+### 6. Run migrations
+```bash
+python manage.py migrate
+```
+
+### 7. Create a superuser
+```bash
+python manage.py createsuperuser
+```
+
+### 8. Start the development server
+```bash
+python manage.py runserver
+```
+
+### Visit:
+```
+http://127.0.0.1:8000
+```
+```
+
+---
+
+If you want, I can also clean up the entire README for consistent heading levels and spacing so everything looks polished.
+
 🔧 Environment Variables
 Variable	Description
 SECRET_KEY	Django secret key
