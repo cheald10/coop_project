@@ -107,20 +107,6 @@ python manage.py runserver
 ```
 http://127.0.0.1:8000
 ```
-```
-
-Ah, I see exactly what’s happening — **your Markdown isn’t rendering correctly because the code blocks are not fenced properly.**  
-GitHub requires triple‑backticks (```) *before and after* any code or directory tree.
-
-Right now, your README is missing those closing fences, so GitHub is treating everything as plain text.
-
-Let me give you a **clean, fully corrected, copy‑and‑paste‑ready Markdown block** starting at **Environment Variables** and continuing through the end of your README.
-
-This version **will render perfectly** on GitHub.
-
----
-
-# ✅ **Corrected Markdown (copy/paste this)**
 
 ```md
 # 🔧 Environment Variables
