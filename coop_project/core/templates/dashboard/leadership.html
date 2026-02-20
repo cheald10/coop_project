@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Leadership Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">Leadership Dashboard</h1>
+  <small class="text-muted">Read-only overview</small>
+</div>
+
+<!-- Status summary cards -->
+<div class="row g-3 mb-4">
+  <div class="col-sm-3">
+    <div class="card text-center border-0 shadow-sm">
+      <div class="card-body">
+        <div class="fs-2 fw-bold text-primary">{{ status_summary.total }}</div>
+        <div class="text-muted small">Total Divisions</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card text-center border-0 shadow-sm">
+      <div class="card-body">
+        <div class="fs-2 fw-bold text-success">{{ status_summary.approved }}</div>
+        <div class="text-muted small">Approved</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card text-center border-0 shadow-sm">
+      <div class="card-body">
+        <div class="fs-2 fw-bold text-warning">{{ status_summary.under_review }}</div>
+        <div class="text-muted small">Under Review</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card text-center border-0 shadow-sm">
+      <div class="card-body">
+        <div class="fs-2 fw-bold text-secondary">{{ status_summary.draft }}</div>
+        <div class="text-muted small">Draft</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Division table -->
+<div class="card shadow-sm">
+  <div class="card-header bg-white fw-semibold">Division Readiness Overview</div>
+  <div class="card-body p-0">
+    <table class="table table-hover mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Division</th>
+          <th>Plan Status</th>
+          <th>Version</th>
+          <th>Essential Functions</th>
+          <th>Critical Apps</th>
+          <th>Key Personnel</th>
+          <th>Next Review</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for div in divisions %}
+        <tr>
+          <td>
+            <a href="{% url 'division_detail' div.id %}">{{ div.name }}</a>
+          </td>
+          <td>
+            {% if div.plan_status == "Approved" %}
+              <span class="badge bg-success">{{ div.plan_status }}</span>
+            {% elif div.plan_status == "Under Review" %}
+              <span class="badge bg-warning text-dark">{{ div.plan_status }}</span>
+            {% else %}
+              <span class="badge bg-secondary">{{ div.plan_status }}</span>
+            {% endif %}
+          </td>
+          <td>v{{ div.plan_version }}</td>
+          <td>{{ div.ef_count }}</td>
+          <td>{{ div.app_count }}</td>
+          <td>{{ div.personnel_count }}</td>
+          <td>{{ div.next_review_date|default:"—" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="text-center text-muted py-4">No divisions found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

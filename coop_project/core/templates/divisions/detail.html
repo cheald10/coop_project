@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}{{ division.name }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">{{ division.name }}</h1>
+  <div class="d-flex gap-2">
+    {% if perms or user.is_superuser %}
+    <form method="post" action="{% url 'generate_coop_plan' division.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success btn-sm">📄 Generate Plan</button>
+    </form>
+    {% endif %}
+    <a href="{% url 'coop_plan_history' division.id %}" class="btn btn-outline-secondary btn-sm">Plan History</a>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header bg-white fw-semibold">Plan Status</div>
+      <div class="card-body">
+        <p><strong>Status:</strong>
+          {% if division.plan_status == "Approved" %}
+            <span class="badge bg-success">{{ division.plan_status }}</span>
+          {% elif division.plan_status == "Under Review" %}
+            <span class="badge bg-warning text-dark">{{ division.plan_status }}</span>
+          {% else %}
+            <span class="badge bg-secondary">{{ division.plan_status }}</span>
+          {% endif %}
+        </p>
+        <p><strong>Version:</strong> {{ division.plan_version }}</p>
+        <p><strong>Last Updated:</strong> {{ division.last_updated }}</p>
+        <p><strong>Next Review:</strong> {{ division.next_review_date|default:"Not set" }}</p>
+        {% if division.coordinator %}
+          <p><strong>Coordinator:</strong> {{ division.coordinator.get_full_name|default:division.coordinator.username }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card shadow-sm h-100">
+      <div class="card-header bg-white fw-semibold">COOP Plan Sections</div>
+      <div class="card-body">
+        <div class="row row-cols-2 g-2">
+          {% url 'essential_function_list' division.id as ef_url %}
+          {% url 'critical_application_list' division.id as app_url %}
+          {% url 'key_personnel_list' division.id as kp_url %}
+          {% url 'vital_record_list' division.id as vr_url %}
+          {% url 'dependency_list' division.id as dep_url %}
+          {% url 'alternate_facility_list' division.id as af_url %}
+          {% url 'communication_list' division.id as comm_url %}
+          {% url 'recovery_priority_list' division.id as rp_url %}
+          {% url 'division_metadata_detail' division.id as meta_url %}
+          {% for label, url in sections %}
+          <div class="col">
+            <a href="{{ url }}" class="btn btn-outline-primary btn-sm w-100">{{ label }}</a>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="row row-cols-2 g-2 mt-1">
+          <div class="col"><a href="{% url 'essential_function_list' division.id %}" class="btn btn-outline-primary btn-sm w-100">⚡ Essential Functions</a></div>
+          <div class="col"><a href="{% url 'critical_application_list' division.id %}" class="btn btn-outline-primary btn-sm w-100">💻 Critical Applications</a></div>
+          <div class="col"><a href="{% url 'key_personnel_list' division.id %}" class="btn btn-outline-primary btn-sm w-100">👥 Key Personnel</a></div>
+          <div class="col"><a href="{% url 'vital_record_list' division.id %}" class="btn btn-outline-primary btn-sm w-100">📁 Vital Records</a></div>
+          <div class="col"><a href="{% url 'dependency_list' division.id %}" class="btn btn-outline-primary btn-sm w-100">🔗 Dependencies</a></div>
+          <div class="col"><a href="{% url 'alternate_facility_list' division.id %}" class="btn btn-outline-primary btn-sm w-100">🏢 Alternate Facilities</a></div>
+          <div class="col"><a href="{% url 'communication_list' division.id %}" class="btn btn-outline-primary btn-sm w-100">📡 Communications</a></div>
+          <div class="col"><a href="{% url 'recovery_priority_list' division.id %}" class="btn btn-outline-primary btn-sm w-100">🔄 Recovery Priorities</a></div>
+          <div class="col"><a href="{% url 'division_metadata_detail' division.id %}" class="btn btn-outline-secondary btn-sm w-100">🏷 Division Profile</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if division.notes %}
+<div class="card shadow-sm mt-3">
+  <div class="card-header bg-white fw-semibold">Notes</div>
+  <div class="card-body">{{ division.notes }}</div>
+</div>
+{% endif %}
+{% endblock %}

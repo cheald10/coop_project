@@ -1,0 +1,9 @@
+name: coop-project
+
+entrypoint: app/main.py
+
+system_database_url: ${DBOS_SYSTEM_DATABASE_URL}
+
+runtimeConfig:
+  start:
+    - uvicorn app.main:app --host 0.0.0.0 --port 8000

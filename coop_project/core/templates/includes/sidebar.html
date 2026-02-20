@@ -1,0 +1,28 @@
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'division_list' %}">📋 All Divisions</a>
+  </li>
+  {% if user.is_authenticated %}
+    {% if user.is_superuser or user.groups.all|length > 0 %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'leadership_dashboard' %}">📊 Dashboard</a>
+    </li>
+    {% endif %}
+  {% endif %}
+
+  {% if division %}
+    <hr class="my-2">
+    <li class="nav-item fw-semibold text-muted small px-3 py-1">{{ division.name }}</li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'division_detail' division.id %}">🏠 Overview</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'essential_function_list' division.id %}">⚡ Essential Functions</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'critical_application_list' division.id %}">💻 Critical Applications</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'key_personnel_list' division.id %}">👥 Key Personnel</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'vital_record_list' division.id %}">📁 Vital Records</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'dependency_list' division.id %}">🔗 Dependencies</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'alternate_facility_list' division.id %}">🏢 Alternate Facilities</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'communication_list' division.id %}">📡 Communications</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'recovery_priority_list' division.id %}">🔄 Recovery Priorities</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'division_metadata_detail' division.id %}">🏷 Division Profile</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'coop_plan_history' division.id %}">📄 Plan History</a></li>
+  {% endif %}
+</ul>

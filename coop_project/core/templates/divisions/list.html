@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Divisions{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3">Divisions</h1>
+</div>
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+  {% for div in divisions %}
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{% url 'division_detail' div.id %}" class="text-decoration-none">{{ div.name }}</a>
+        </h5>
+        <div class="d-flex gap-2 mt-2">
+          {% if div.plan_status == "Approved" %}
+            <span class="badge bg-success">{{ div.plan_status }}</span>
+          {% elif div.plan_status == "Under Review" %}
+            <span class="badge bg-warning text-dark">{{ div.plan_status }}</span>
+          {% else %}
+            <span class="badge bg-secondary">{{ div.plan_status }}</span>
+          {% endif %}
+          <span class="badge bg-light text-dark border">v{{ div.plan_version }}</span>
+        </div>
+        {% if div.coordinator %}
+          <p class="card-text text-muted small mt-2 mb-0">Coordinator: {{ div.coordinator.get_full_name|default:div.coordinator.username }}</p>
+        {% endif %}
+        {% if div.next_review_date %}
+          <p class="card-text text-muted small mb-0">Next review: {{ div.next_review_date }}</p>
+        {% endif %}
+      </div>
+      <div class="card-footer bg-transparent">
+        <a href="{% url 'division_detail' div.id %}" class="btn btn-sm btn-outline-primary">View</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-12">
+    <p class="text-muted">No divisions found. Ask your administrator to create divisions.</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

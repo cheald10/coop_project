@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Recovery Priorities — {{ division.name }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3">Recovery Priorities — {{ division.name }}</h1>
+  <a href="{% url 'recovery_priority_create' division.id %}" class="btn btn-success btn-sm">+ Add Priority</a>
+</div>
+<table class="table table-striped table-hover shadow-sm">
+  <thead class="table-dark"><tr><th>Priority</th><th>Item</th><th>Type</th><th>Rationale</th><th></th></tr></thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.priority_level }}</td><td>{{ item.item_name }}</td>
+      <td>{{ item.item_type }}</td><td>{{ item.rationale|truncatechars:80 }}</td>
+      <td><a href="{% url 'recovery_priority_edit' item.id %}" class="btn btn-sm btn-outline-primary">Edit</a></td>
+    </tr>
+    {% empty %}<tr><td colspan="5" class="text-center text-muted py-4">No recovery priorities defined.</td></tr>{% endfor %}
+  </tbody>
+</table>{% endblock %}
